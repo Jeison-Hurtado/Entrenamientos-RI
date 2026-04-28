@@ -906,7 +906,7 @@
             </div>
         </div>
 
-        <div class="header-filters">
+        <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap; flex: 1;">
             <div class="filter-group">
                 <label>Modalidad</label>
                 <select id="filterModalidad">
@@ -930,9 +930,6 @@
                     <option value="">Todos</option>
                 </select>
             </div>
-        </div>
-
-        <div style="display: flex; gap: 10px; align-items: center;">
             <label for="fileInput" class="btn-actualizar" style="margin:0;background:#e8f5e9;color:#1b5e20;border:2px solid #1b5e20;cursor:pointer;">📁 Cargar</label>
             <input id="fileInput" type="file" accept=".xlsx,.xls,.csv" style="display:none;">
             <button class="btn-actualizar" style="background:#43a047;color:white;border:none;" onclick="downloadExcel()">💾 Descargar</button>
@@ -1666,6 +1663,10 @@
             `;
             document.body.appendChild(modal);
             modal.onclick = (e) => { if(e.target === modal) modal.remove(); };
+        }
+
+        function capitalize(s) {
+            return s.charAt(0).toUpperCase() + s.slice(1);
         }
 
         function showAlert(msg, type) {
