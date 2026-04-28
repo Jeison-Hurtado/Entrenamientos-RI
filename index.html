@@ -1200,26 +1200,40 @@
                     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
                     const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
+                    if (!jsonData || jsonData.length === 0) {
+                        showAlert('⚠️ El archivo está vacío o no tiene datos válidos', 'error');
+                        return;
+                    }
+
                     visits = jsonData.map((row, idx) => ({
                         id: idx + 1,
-                        empresa: String(row['Empresa'] || '').trim(),
-                        contacto: String(row['Contacto'] || '').trim(),
-                        fecha: formatDateForInput(row['Fecha'] || ''),
-                        hora: String(row['Hora'] || '').trim(),
-                        zona: String(row['Zona'] || '').trim(),
-                        responsable: String(row['Responsable'] || '').trim(),
-                        tipo: String(row['Tipo'] || '').trim(),
-                        estado: String(row['Estado'] || 'pendiente').toLowerCase().trim(),
-                        modalidad: String(row['Modalidad'] || 'presencial').toLowerCase().trim(),
-                        notas: String(row['Notas'] || '').trim()
+                        empresa: String(row['Empresa'] || row['empresa'] || '').trim(),
+                        contacto: String(row['Contacto'] || row['contacto'] || '').trim(),
+                        fecha: formatDateForInput(row['Fecha'] || row['fecha'] || ''),
+                        hora: String(row['Hora'] || row['hora'] || '').trim(),
+                        zona: String(row['Zona'] || row['zona'] || '').trim(),
+                        responsable: String(row['Responsable'] || row['responsable'] || '').trim(),
+                        tipo: String(row['Tipo'] || row['tipo'] || '').trim(),
+                        estado: String(row['Estado'] || row['estado'] || 'pendiente').toLowerCase().trim(),
+                        modalidad: String(row['Modalidad'] || row['modalidad'] || 'presencial').toLowerCase().trim(),
+                        notas: String(row['Notas'] || row['notas'] || '').trim()
                     })).filter(v => v.empresa);
+
+                    if (visits.length === 0) {
+                        showAlert('⚠️ No se encontraron registros con Empresa válida', 'error');
+                        return;
+                    }
 
                     nextId = Math.max(...visits.map(v => v.id), 0) + 1;
                     showAlert(`✅ Excel cargado con ${visits.length} registros`, 'success');
                     render();
                 } catch (err) {
-                    showAlert('❌ Error al leer el archivo', 'error');
+                    showAlert('❌ Error: ' + err.message, 'error');
+                    console.error(err);
                 }
+            };
+            reader.onerror = function() {
+                showAlert('❌ Error al leer el archivo', 'error');
             };
             reader.readAsArrayBuffer(file);
         });
@@ -1497,10 +1511,13 @@
         }
 
         function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tab).classList.add('active');
+            // Remover active de todos los tabs y contenidos
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Agregar active al tab y contenido seleccionado
             event.target.classList.add('active');
+            document.getElementById(tab).classList.add('active');
         }
 
         function previousMonth() {
