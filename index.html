@@ -930,7 +930,10 @@
                     <option value="">Todos</option>
                 </select>
             </div>
-            <label for="fileInput" class="btn-actualizar" style="margin:0;background:#e8f5e9;color:#1b5e20;border:2px solid #1b5e20;">📁 Cargar</label>
+        </div>
+
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <label for="fileInput" class="btn-actualizar" style="margin:0;background:#e8f5e9;color:#1b5e20;border:2px solid #1b5e20;cursor:pointer;">📁 Cargar</label>
             <input id="fileInput" type="file" accept=".xlsx,.xls,.csv" style="display:none;">
             <button class="btn-actualizar" style="background:#43a047;color:white;border:none;" onclick="downloadExcel()">💾 Descargar</button>
             <button class="btn-actualizar" onclick="render()">🔄 Actualizar</button>
@@ -1241,12 +1244,30 @@
         function formatDateForInput(dateStr) {
             if (!dateStr) return '';
             let date;
+            
+            // Si es un número (fecha de Excel)
             if (typeof dateStr === 'number') {
                 date = new Date((dateStr - 25569) * 86400 * 1000);
+            } 
+            // Si es una fecha válida como string
+            else if (typeof dateStr === 'string') {
+                // Intenta parsear como DD/MM/YYYY o YYYY-MM-DD
+                if (dateStr.includes('/')) {
+                    const [d, m, y] = dateStr.split('/');
+                    date = new Date(y, m - 1, d);
+                } else {
+                    date = new Date(dateStr);
+                }
             } else {
-                date = new Date(dateStr);
+                return '';
             }
-            if (isNaN(date)) return String(dateStr);
+            
+            // Validar que la fecha sea válida
+            if (isNaN(date.getTime())) {
+                console.warn('Fecha inválida:', dateStr);
+                return '';
+            }
+            
             return date.toISOString().split('T')[0];
         }
 
