@@ -913,15 +913,13 @@
                     <option value="">Todas</option>
                     <option value="presencial">Presencial</option>
                     <option value="virtual">Virtual</option>
-                    <option value="sin_programar">Sin programar</option>
                 </select>
             </div>
             <div class="filter-group">
                 <label>Tipo de acompañamiento</label>
                 <select id="filterTipo">
                     <option value="">Todos</option>
-                    <option value="blanco">En blanco</option>
-                    <option value="vu">VÚ / SV</option>
+                    <option value="Verdad única">Verdad única</option>
                 </select>
             </div>
             <div class="filter-group">
@@ -933,7 +931,6 @@
             <label for="fileInput" class="btn-actualizar" style="margin:0;background:#e8f5e9;color:#1b5e20;border:2px solid #1b5e20;cursor:pointer;">📁 Cargar</label>
             <input id="fileInput" type="file" accept=".xlsx,.xls,.csv" style="display:none;">
             <button class="btn-actualizar" style="background:#43a047;color:white;border:none;" onclick="downloadExcel()">💾 Descargar</button>
-            <button class="btn-actualizar" onclick="render()">🔄 Actualizar</button>
         </div>
     </div>
 
@@ -1028,10 +1025,9 @@
                 <div class="kpi-icon">⏱️</div>
                 <div class="kpi-content">
                     <div class="kpi-label">Duración Real</div>
-                    <div class="kpi-value" id="kpi-duracion">0 días</div>
+                    <div class="kpi-value" id="kpi-duracion">0 h</div>
                 </div>
             </div>
-            <div class="divider"></div>
             <div class="kpi-item">
                 <div class="kpi-icon">⏳</div>
                 <div class="kpi-content">
@@ -1039,11 +1035,7 @@
                     <div class="kpi-value" id="kpi-horas">0 h</div>
                 </div>
             </div>
-            <div class="divider"></div>
-            <button class="btn-actualizar" style="background:#1b5e20;color:white;border:none;padding:12px 20px;font-size:13px;" onclick="openModal()">➕ Nueva Visita</button>
-            <div class="footer-text">
-                Información actualizada al momento de la consulta
-            </div>
+            <button class="btn-actualizar" style="background:#1b5e20;color:white;border:none;padding:12px 20px;font-size:13px;height:fit-content;margin-left:auto;" onclick="openModal()">➕ Nueva Visita</button>
         </div>
 
         <!-- Tabs Section -->
@@ -1099,11 +1091,11 @@
             <div class="modal-grid">
                 <div class="field">
                     <label>Empresa *</label>
-                    <input id="fEmpresa" type="text" placeholder="Ej: GR">
+                    <input id="fEmpresa" type="text" placeholder="Ej: Bancolombia">
                 </div>
                 <div class="field">
                     <label>Contacto</label>
-                    <input id="fContacto" type="text" placeholder="Ej: Jeison Hurtado">
+                    <input id="fContacto" type="text" placeholder="Ej: Juan Pérez">
                 </div>
                 <div class="field">
                     <label>Fecha *</label>
@@ -1127,14 +1119,14 @@
                 </div>
                 <div class="field">
                     <label>Responsable</label>
-                    <input id="fResp" type="text" placeholder="Ej: Sandra Liliana Garcia">
+                    <input id="fResp" type="text" placeholder="Ej: Laura Torres">
                 </div>
                 <div class="field">
                     <label>Tipo de Acompañamiento</label>
                     <select id="fTipo">
                         <option value="">Seleccionar</option>
-                        <option value="Verdad única">verdad única</option>
-                        <option value="Siembra Valor">Siembra Valor</option>
+                        <option value="blanco">En blanco</option>
+                        <option value="vu">VÚ / SV</option>
                     </select>
                 </div>
                 <div class="field">
@@ -1232,66 +1224,7 @@
             { id: 56, empresa: 'MB', contacto: 'AVILA ARMIJOS MARCO VINICIO', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Jeison Hurtado', tipo: 'Verdad única', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
             { id: 57, empresa: 'MN', contacto: 'ESCOLA SANDOVAL JENNY ELIZABETH', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Jeison Hurtado', tipo: 'Verdad única', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
             { id: 58, empresa: 'SM', contacto: 'JARAMILLO TORRES ALEX DANIEL', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Jeison Hurtado', tipo: 'Verdad única', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 59, empresa: 'ZE', contacto: 'MANTILLA FERNANDO', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Jeison Hurtado', tipo: 'Verdad única', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 60, empresa: 'TN', contacto: 'MARIN FERREIRA ANA MARIA', fecha: '2026-05-15', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 61, empresa: 'PM', contacto: 'QUIÑONEZ LOPEZ KAREN LORENA', fecha: '2026-05-15', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 62, empresa: 'FV', contacto: 'AVILA GUZMAN MIGUEL ENRIQUE', fecha: '2026-05-13', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 63, empresa: 'Z5', contacto: 'AVILA GUZMAN MIGUEL ENRIQUE', fecha: '2026-05-13', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 64, empresa: 'UB', contacto: 'BALLEN VARGAS MARTHA LILIANA', fecha: '2026-05-13', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 65, empresa: 'TM', contacto: 'MAYRA ALEJANDRA AGUIRRE MUÑOZ', fecha: '2026-04-23', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 66, empresa: 'AL', contacto: 'GUERRERO RODRIGUEZ ERIKA YINETH', fecha: '2026-05-19', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 67, empresa: 'QA', contacto: 'MONCADA MONCADA OLGA BEATRIZ', fecha: '2026-05-19', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 68, empresa: 'ER', contacto: 'RODRIGUEZ PAPAGAYO JORGE HUMBERTO', fecha: '2026-05-20', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 69, empresa: 'QF', contacto: 'PASTRAN OVALLE NATALIA', fecha: '2026-05-20', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 70, empresa: 'CP', contacto: 'ROMERO HERNANDEZ OLGA MIREYA', fecha: '2026-05-22', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 71, empresa: 'LM', contacto: 'TORRES LARA DELIA CONSTANZA', fecha: '2026-05-22', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 72, empresa: 'PL', contacto: 'PACHON MATIZ NANNCY YOLIMA', fecha: '2026-05-26', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 73, empresa: 'PP', contacto: 'VARILA GALVIZ MARIA FERNANDA', fecha: '2026-05-26', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 74, empresa: 'Z3', contacto: 'VARILA GALVIZ MARIA FERNANDA', fecha: '2026-05-26', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 75, empresa: 'LN', contacto: 'GONZALEZ GOMEZ SANDRA MILENA', fecha: '2026-05-04', hora: '08:00', zona: 'NORTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 76, empresa: 'SC', contacto: 'FABIO VARGAS OSORIO', fecha: '2026-05-29', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 77, empresa: 'RQ', contacto: 'PINZON CAMELO MONICA', fecha: '2026-05-29', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 78, empresa: 'RF', contacto: 'AHUMADA VILLALBA SANDRA PATRICIA', fecha: '2026-06-03', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 79, empresa: 'CH', contacto: 'GAMBOA ADRIAZNA MARCELA', fecha: '2026-06-03', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 80, empresa: 'CG', contacto: 'ROBLES ROZO CLAUDIA NAYIBE', fecha: '2026-06-05', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 81, empresa: 'HA', contacto: 'MONTOYA CARDENAS MONICA VIVIANA', fecha: '2026-06-09', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 82, empresa: 'MG', contacto: 'ESPINOSA HUERFANO VIVIANA MARCELA', fecha: '2026-06-09', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 83, empresa: 'JA', contacto: 'QUINTERO GALINDO LILIANA', fecha: '2026-06-12', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 84, empresa: 'FG', contacto: 'AHUMADA VILLALBA SANDRA PATRICIA', fecha: '2026-06-16', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 85, empresa: 'FA', contacto: 'GARZON RODRIGUEZ DIANA CAROLINA', fecha: '2026-06-16', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 86, empresa: 'AB', contacto: 'BUITRAGO CARANTON JUDY PAOLA', fecha: '2026-06-19', hora: '08:00', zona: 'OCCIDENTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 87, empresa: 'SZ', contacto: 'GUAYAMBUCO SARMIENTO LAURA TATIANA', fecha: '2026-06-19', hora: '08:00', zona: 'OCCIDENTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 88, empresa: 'SB', contacto: 'BARACALDO MARTINEZ DIANA DEL PILAR', fecha: '2026-06-24', hora: '08:00', zona: 'OCCIDENTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 89, empresa: 'FL', contacto: 'CLAVIJO GUTIERREZ ANGELICA YADIRA', fecha: '2026-04-30', hora: '08:00', zona: 'OCCIDENTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 90, empresa: 'AJ', contacto: 'OSORIO FONSECA DIANA CRISTINA', fecha: '2026-06-26', hora: '08:00', zona: 'OCCIDENTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 91, empresa: 'LC', contacto: 'MORENO COLORADO SANDRA CATHERINE', fecha: '2026-06-26', hora: '08:00', zona: 'OCCIDENTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 92, empresa: 'SN', contacto: 'PADILLA ROMERO YADIRA ISABEL', fecha: '2026-06-30', hora: '08:00', zona: 'OCCIDENTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 93, empresa: 'MO', contacto: 'HERNANDEZ TRIANA RODOLFO', fecha: '2026-06-30', hora: '08:00', zona: 'OCCIDENTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 94, empresa: 'ZK', contacto: 'MORA SALCEDO CONSTANZA', fecha: '2026-07-01', hora: '08:00', zona: 'OCCIDENTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 95, empresa: 'FF-ADM', contacto: 'QUINTANA SANCHEZ YULIANDRI', fecha: '2026-07-01', hora: '08:00', zona: 'OCCIDENTE', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 96, empresa: 'BG', contacto: 'MAHECHA MUÑOZ MARICELA', fecha: '2026-07-08', hora: '08:00', zona: 'OTROS', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 97, empresa: 'PA', contacto: 'MENDEZ GARNICA DIANA CATHERINE', fecha: '2026-07-08', hora: '08:00', zona: 'OTROS', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 98, empresa: 'ZA', contacto: 'CASALLAS NANCY JANNETH', fecha: '2026-07-10', hora: '08:00', zona: 'OTROS', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 99, empresa: 'Z1', contacto: 'SANCHEZ FONTECHA SINDI BRIDGI', fecha: '2026-07-14', hora: '08:00', zona: 'CENTRO', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 100, empresa: 'JS', contacto: 'SOTO GIL MONICA YULIETH', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 101, empresa: 'FE', contacto: 'ALZATE CASTAÑO MARIA CRISTINA', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 102, empresa: 'HC', contacto: 'ARANGO ARANGO OSCAR ARMANDO', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 103, empresa: 'IS', contacto: 'ALZATE CASTAÑO MARIA CRISTINA', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 104, empresa: 'JQ', contacto: 'FAJARDO GRISALES ERIKA TATIANA', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 105, empresa: 'JU', contacto: 'FAJARDO GRISALES ERIKA TATIANA', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 106, empresa: 'MT', contacto: 'AGUDELO RAMIREZ ALBA DORIS', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 107, empresa: 'OL', contacto: 'ARANGO ARANGO OSCAR ARMANDO', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 108, empresa: 'TR', contacto: 'SANCHEZ GOMEZ SILVIA CRISTINA', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 109, empresa: 'IB', contacto: 'SARMIENTO CENTENO CAREN VIVIANA', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 110, empresa: 'LV', contacto: 'YEPES PATIÑO MARIA ISABEL', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 111, empresa: 'JN', contacto: 'CARMONA BEDOYA MARLENY', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 112, empresa: 'JP', contacto: 'VARGAS GIL DEISY', fecha: '2026-07-30', hora: '08:00', zona: 'ANTIOQUIA', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 113, empresa: 'CW', contacto: 'SALAZAR CRUZ DENNIS RENATO', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 114, empresa: 'FS', contacto: 'GOMEZ VASQUEZ JISSELA DE LOS ANGELES', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 115, empresa: 'MB', contacto: 'AVILA ARMIJOS MARCO VINICIO', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 116, empresa: 'MN', contacto: 'ESCOLA SANDOVAL JENNY ELIZABETH', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 117, empresa: 'SM', contacto: 'JARAMILLO TORRES ALEX DANIEL', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' },
-            { id: 118, empresa: 'ZE', contacto: 'MANTILLA FERNANDO', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Andres Villamil', tipo: 'Siembra Valor', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' }
+            { id: 59, empresa: 'ZE', contacto: 'MANTILLA FERNANDO', fecha: '2026-07-30', hora: '08:00', zona: 'ECUADOR', responsable: 'Jeison Hurtado', tipo: 'Verdad única', estado: 'pendiente', modalidad: 'presencial', notas: 'Pendiente agendar' }
         ];
 
         visits = [...datosEjemplo];
