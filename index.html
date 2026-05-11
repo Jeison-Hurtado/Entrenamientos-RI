@@ -271,11 +271,12 @@
 
         .donut-center {
             position: absolute;
-            top: 50%;
+            top: 42%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
             z-index: 10;
+            pointer-events: none;
         }
 
         .donut-value {
@@ -676,6 +677,44 @@
             transform: scale(1.05);
         }
 
+        .table-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .table-filters input,
+        .table-filters select {
+            padding: 8px 12px;
+            border: 2px solid #e8f5e9;
+            border-radius: 8px;
+            font-size: 13px;
+            background: #f9f9f9;
+            color: #1a1a1a;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .table-filters input:focus,
+        .table-filters select:focus {
+            outline: none;
+            border-color: #2e7d32;
+        }
+
+        .table-filters input {
+            min-width: 200px;
+        }
+
+        .table-count {
+            margin-left: auto;
+            font-size: 12px;
+            color: #999;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
         /* ===== GANTT ===== */
         .gantt-chart {
             overflow-x: auto;
@@ -1063,6 +1102,25 @@
 
             <!-- Lista -->
             <div id="lista" class="tab-content">
+                <div class="table-filters">
+                    <input type="text" id="tblSearch" placeholder="🔍 Buscar empresa o contacto...">
+                    <select id="tblZona">
+                        <option value="">Todas las zonas</option>
+                        <option value="ANTIOQUIA">Antioquia</option>
+                        <option value="CENTRO">Centro</option>
+                        <option value="NORTE">Norte</option>
+                        <option value="OCCIDENTE">Occidente</option>
+                        <option value="OTROS">Otros</option>
+                        <option value="ECUADOR">Ecuador</option>
+                    </select>
+                    <select id="tblEstado">
+                        <option value="">Todos los estados</option>
+                        <option value="programado">Programado</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="completado">Completado</option>
+                    </select>
+                    <span class="table-count" id="tableCount"></span>
+                </div>
                 <div class="table-wrapper">
                     <table>
                         <thead>
@@ -1492,7 +1550,22 @@
         }
 
         function renderTable() {
-            const filtered = getFiltered().sort((a, b) => a.fecha.localeCompare(b.fecha));
+            const search = (document.getElementById('tblSearch')?.value || '').toLowerCase();
+            const zona = (document.getElementById('tblZona')?.value || '').toUpperCase();
+            const estado = (document.getElementById('tblEstado')?.value || '').toLowerCase();
+
+            const filtered = getFiltered()
+                .filter(v => {
+                    if (search && !v.empresa.toLowerCase().includes(search) && !(v.contacto||'').toLowerCase().includes(search)) return false;
+                    if (zona && v.zona.toUpperCase() !== zona) return false;
+                    if (estado && v.estado.toLowerCase() !== estado) return false;
+                    return true;
+                })
+                .sort((a, b) => a.fecha.localeCompare(b.fecha));
+
+            const countEl = document.getElementById('tableCount');
+            if (countEl) countEl.textContent = filtered.length + ' registro' + (filtered.length !== 1 ? 's' : '');
+
             const html = filtered.map(v => `
                 <tr>
                     <td>${formatDate(v.fecha)}</td>
@@ -1764,6 +1837,9 @@
         document.getElementById('filterModalidad').addEventListener('change', render);
         document.getElementById('filterTipo').addEventListener('change', render);
         document.getElementById('filterResponsable').addEventListener('change', render);
+        document.getElementById('tblSearch').addEventListener('input', renderTable);
+        document.getElementById('tblZona').addEventListener('change', renderTable);
+        document.getElementById('tblEstado').addEventListener('change', renderTable);
 
         populateFilters();
         render();
