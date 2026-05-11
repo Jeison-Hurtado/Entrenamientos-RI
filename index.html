@@ -654,6 +654,11 @@
             color: #f57f17;
         }
 
+        .badge-programado {
+            background: #bbdefb;
+            color: #1565c0;
+        }
+
         .btn-observaciones {
             padding: 6px 12px;
             border-radius: 6px;
@@ -1095,14 +1100,14 @@
                 </div>
                 <div class="field">
                     <label>Contacto</label>
-                    <input id="fContacto" type="text" placeholder="Ej: Contacto empresa">
+                    <input id="fContacto" type="text" placeholder="Ej: Contacto Empresa">
                 </div>
                 <div class="field">
                     <label>Fecha *</label>
                     <input id="fFecha" type="date">
                 </div>
                 <div class="field">
-                    <label>Hora</label>
+                    <label>Duración</label>
                     <input id="fHora" type="time">
                 </div>
                 <div class="field">
@@ -1119,19 +1124,20 @@
                 </div>
                 <div class="field">
                     <label>Responsable</label>
-                    <input id="fResp" type="text" placeholder="Ej: Responsable GHT">
+                    <input id="fResp" type="text" placeholder="Ej: Contacto GHT">
                 </div>
                 <div class="field">
                     <label>Tipo de Acompañamiento</label>
                     <select id="fTipo">
                         <option value="">Seleccionar</option>
-                        <option value="blanco">Verdad Única</option>
-                        <option value="vu">Siembra Valor</option>
+                        <option value="Verdad Única">Verdad Única</option>
+                        <option value="Siembra Valor">Siembra Valor</option>
                     </select>
                 </div>
                 <div class="field">
                     <label>Estado</label>
                     <select id="fEstado">
+                        <option value="programado">Programado</option>
                         <option value="pendiente">Pendiente</option>
                         <option value="completado">Completado</option>
                     </select>
@@ -1494,7 +1500,7 @@
                     <td>${v.responsable}</td>
                     <td>${v.empresa}</td>
                     <td>${v.tipo || '—'}</td>
-                    <td><span class="badge-estado badge-${v.estado}">${v.estado === 'completado' ? 'Completado' : 'Pendiente'}</span></td>
+                    <td><span class="badge-estado badge-${v.estado}">${v.estado === 'completado' ? 'Completado' : v.estado === 'programado' ? 'Programado' : 'Pendiente'}</span></td>
                     <td>${capitalize(v.modalidad)}</td>
                     <td><button class="btn-observaciones" onclick="showObservaciones('${v.id}', '${v.empresa}', '${v.notas}')">📝 Ver</button></td>
                 </tr>
@@ -1528,12 +1534,16 @@
                 
                 let visitsHtml = '';
                 dayVisits.forEach(v => {
-                    visitsHtml += `<div style="font-size:9px;padding:2px;background:#1e88e5;color:white;border-radius:3px;margin:1px 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${v.empresa}">
+                    const chipColor = v.estado === 'completado' ? '#2e7d32' : '#1e88e5';
+                    visitsHtml += `<div style="font-size:9px;padding:2px;background:${chipColor};color:white;border-radius:3px;margin:1px 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${v.empresa}">
                         <strong>${v.empresa}</strong><br>${v.responsable || '—'}<br>${v.tipo || '—'}<br>${v.hora || '—'}
                     </div>`;
                 });
 
-                html += `<div class="cal-day ${hasEvents ? 'has-events' : ''}" onclick="openModal('${dateStr}')" style="cursor:pointer;padding:4px;overflow-y:auto;">
+                const allCompleted = hasEvents && dayVisits.every(v => v.estado === 'completado');
+                const dayBg = allCompleted ? 'background:#c8e6c9;border-color:#2e7d32;' : '';
+
+                html += `<div class="cal-day ${hasEvents ? 'has-events' : ''}" onclick="openModal('${dateStr}')" style="cursor:pointer;padding:4px;overflow-y:auto;${dayBg}">
                     <div style="font-size:11px;font-weight:600;margin-bottom:4px;">${day}</div>
                     ${visitsHtml}
                 </div>`;
